@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:13:08 by nileempo          #+#    #+#             */
-/*   Updated: 2024/02/12 01:02:25 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/02/12 01:18:56 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_data
 	int	time_to_sleep;
 	int	eat_nbr;
 }	t_data;
-
 
 //init structure functions
 void	init_struct(t_data *data);
