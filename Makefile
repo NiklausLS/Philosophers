@@ -6,7 +6,7 @@
 #    By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 22:52:15 by nileempo          #+#    #+#              #
-#    Updated: 2024/02/12 00:21:56 by nileempo         ###   ########.fr        #
+#    Updated: 2024/02/13 00:50:51 by nileempo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ SRCS = main.c \
 		./initialisation/init_structure.c \
 		./parsing/check_errors.c \
 		./parsing/get_args.c \
+		./threads/make_threads.c \
+		./events/dinner.c \
 
 # compilation rules
 CC = gcc

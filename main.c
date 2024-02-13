@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 22:52:43 by nileempo          #+#    #+#             */
-/*   Updated: 2024/02/12 01:15:43 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:53:54 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int	main(int argc, char **argv)
 		}
 		init_struct(data);
 		get_argv(argc, argv, data);
+		make_forks_array(data);
+		make_philo_array(data);
 		free(data);
+		free(data->fork_array);
+		free(data->philo_array);
 	}
 	return (0);
 }

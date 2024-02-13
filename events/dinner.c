@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_structure.c                                   :+:      :+:    :+:   */
+/*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/11 20:47:25 by nileempo          #+#    #+#             */
-/*   Updated: 2024/02/13 14:06:49 by nileempo         ###   ########.fr       */
+/*   Created: 2024/02/13 00:48:52 by nileempo          #+#    #+#             */
+/*   Updated: 2024/02/13 15:04:42 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	init_struct(t_data *data)
-{
-	data->philo_nbr = 0;
-	data->eat_nbr = 0;
-	data->time_to_die = 0;
-	data->time_to_eat = 0;
-	data->time_to_sleep = 0;
-	data->philo_array = NULL;
-}
+//to do list
+//eating
+//sleeping
+//dying
 
-void	init_philo(t_philo *philo)
+void    *events(void *arg)
 {
-	philo->philo_id = 0;
-	philo->thread = 0;
-}
+	t_philo	*philo;
+	int i = 0;
 
-void	init_fork(t_fork *fork)
-{
-	fork->fork_id = 0;
+	philo = arg;
+	while (i < 5)
+	{
+		printf("%d has taken a fork.\n", philo->philo_id);
+
+		//printf("%d is eating.\n", philo->philo_id);
+
+		//printf("%d is sleeping.\n", philo->philo_id);
+
+		//printf("%d is thinking.\n", philo->philo_id);
+
+		//printf("%d died.\n", philo->philo_id);
+		i++;
+	}
+	return (NULL);
 }

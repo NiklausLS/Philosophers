@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:44:02 by nileempo          #+#    #+#             */
-/*   Updated: 2024/02/12 01:16:00 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:56:41 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_argv(char **argv)
 			if (argv[i][j] < '0' || argv[i][j] > '9')
 			{
 				write(2, "ERROR: ", 8);
-				printf("%s is not a number.\n", argv[i]);
+				printf("%s is not a valid argument.\n", argv[i]);
 				return (1);
 			}
 			j++;
@@ -55,12 +55,7 @@ int	check_all(int argc, char **argv)
 {
 	if (check_argc(argc) == 0)
 	{
-		check_argv(&argv[1]);
-		check_argv(&argv[2]);
-		check_argv(&argv[3]);
-		check_argv(&argv[4]);
-		if (argc == 6)
-			check_argv(&argv[5]);
+		check_argv(argv);
 		return (0);
 	}
 	return (1);
