@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:01:45 by nileempo          #+#    #+#             */
-/*   Updated: 2024/02/13 15:07:07 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:17:18 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 void	make_forks_array(t_data *data)
 {
 	int	i;
+
 	data->fork_array = (t_fork *)malloc(data->philo_nbr * sizeof(t_fork));
 	if (!data->fork_array)
 	{

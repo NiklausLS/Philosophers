@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:13:08 by nileempo          #+#    #+#             */
-/*   Updated: 2024/02/13 14:53:11 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:20:35 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 //fork structure
 typedef struct s_fork
 {
-	int		fork_id;
+	int				fork_id;
 	pthread_mutex_t	fork_mutex;
-} t_fork;
+}	t_fork;
 
 //philosophers id
 typedef struct s_philo
@@ -33,17 +33,17 @@ typedef struct s_philo
 	pthread_t	thread;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
-} t_philo;
+}	t_philo;
 
 //arguments data structure
 typedef struct s_data
 {
-	int	philo_nbr;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	eat_nbr;
-	t_philo *philo_array;
+	int		philo_nbr;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		eat_nbr;
+	t_philo	*philo_array;
 	t_fork	*fork_array;
 }	t_data;
 

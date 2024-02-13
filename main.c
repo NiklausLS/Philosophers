@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 22:52:43 by nileempo          #+#    #+#             */
-/*   Updated: 2024/02/13 14:53:54 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:19:41 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	main(int argc, char **argv)
 {
-	t_data *data;
-	
+	t_data	*data;
+
 	if (check_all(argc, argv) == 0)
 	{
 		data = (t_data *)malloc(sizeof(t_data));
