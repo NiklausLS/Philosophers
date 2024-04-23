@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 22:52:43 by nileempo          #+#    #+#             */
-/*   Updated: 2024/04/23 00:32:59 by nileempo         ###   ########.fr       */
+/*   Created: 2024/04/23 00:34:47 by nileempo          #+#    #+#             */
+/*   Updated: 2024/04/23 02:09:07 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	main(int argc, char **argv)
+void	print_state(char *state, int philo_id, t_data *data)
 {
-	t_data	*data;
+	time_t	timestamp;
 
-	data = malloc(sizeof(t_data));
-	if (!data)
-	{
-		write(2, "ERROR: Strutcutre memory allocation failed.\n", 45);
-		return (1);
-	}
-	if (check_all(argc, argv) == 0)
-	{
-		init_data(data);
-		get_argv(argc, argv, data);
-		make_forks_array(data);
-		make_philo_array(data);
-		make_philo_threads(data);
-		//START
-		free(data->fork_array);
-		free(data->philo_array);
-		free(data);
-	}
-	return (0);
+	timestamp = new_timestamp(data);
+	printf("%ld %d %s\n", timestamp, philo_id, state);
 }

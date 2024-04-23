@@ -6,20 +6,21 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:47:25 by nileempo          #+#    #+#             */
-/*   Updated: 2024/02/13 15:18:53 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/04/23 01:55:32 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	init_struct(t_data *data)
+void	init_data(t_data *data)
 {
 	data->philo_nbr = 0;
-	data->eat_nbr = 0;
+	data->meal_nbr = 0;
 	data->time_to_die = 0;
 	data->time_to_eat = 0;
 	data->time_to_sleep = 0;
 	data->philo_array = NULL;
+	data->time_to_start = get_timestamp();
 }
 
 void	init_philo(t_philo *philo)

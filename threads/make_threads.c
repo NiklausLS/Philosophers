@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:01:45 by nileempo          #+#    #+#             */
-/*   Updated: 2024/02/13 15:17:18 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/04/22 23:48:16 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	make_forks_array(t_data *data)
 {
 	int	i;
 
+	i = 0;
 	data->fork_array = (t_fork *)malloc(data->philo_nbr * sizeof(t_fork));
 	if (!data->fork_array)
 	{
@@ -27,49 +28,67 @@ void	make_forks_array(t_data *data)
 		free(data);
 		return ;
 	}
-	i = 0;
 	while (i < data->philo_nbr)
 	{
 		data->fork_array[i].fork_id = i + 1;
-		pthread_mutex_init(&data->fork_array[i].fork_mutex, NULL);
+		if (pthread_mutex_init(&data->fork_array[i].fork_mutex, NULL) != 0)
+		{
+			write (2, "Error: forks mutex initialisation failed\n", 42);
+		}
 		i++;
 	}
 }
 
 /*
- * Make a philosopher
- * @param ptr to my philosopher structure
- * @param id of this new philosopher
- * @param ptr to my fork structure
- */
-void	init_philo_threads(t_philo *philo, int id, t_fork *fork)
+ * Make a thread for each philosopher
+ * @param ptr to my data structure
+*/
+void	make_philo_threads(t_data *data)
 {
-	philo->philo_id = id;
-	philo->left_fork = &fork[id - 1];
-	philo->right_fork = &fork[id - 2];
-	if (pthread_create(&philo->thread, NULL, events, philo) != 0)
+	int	i;
+	t_philo	*philo;
+
+	i = 0;
+	while (i < data->philo_nbr)
 	{
-		write(2, "ERROR: Thread creation failed\n", 31);
-		return ;
+		philo = &data->philo_array[i];
+		philo->left_fork = &data->fork_array[i + (data->philo_array->philo_id - 1)];
+		philo->right_fork = &data->fork_array[i + 1 % (data->philo_array->philo_id - 1)];
+		philo->meal_total = 0;
+		if (pthread_create(&philo->thread, NULL, events, philo) != 0)
+		{
+			write(2, "ERROR: Thread creation failed\n", 31);
+			return ;
+		}
+		//printf("Philosopher %d thread id : %lu\n", philo->philo_id, (unsigned long)philo->thread);
+		//printf("Left fork is %d. Right fork is %d\n", philo->left_fork->fork_id, philo->right_fork->fork_id);
+		//printf("Philo %d have to eat %d times\n", philo->philo_id, philo->meal_total);
+		i++;
 	}
-	printf("Philosopher %d thread id :%lu\n", philo->philo_id, (unsigned long)philo->thread);
-	printf("Left fork is %d. Right fork is %d\n", philo->left_fork->fork_id, philo->right_fork->fork_id);
 }
 
+/*
+ * Make an array of philosophers and init their data
+ * @param ptr to my data structure
+*/
 void	make_philo_array(t_data *data)
 {
 	int	i;
 
+	i = 0;
 	data->philo_array = (t_philo *)malloc(data->philo_nbr * sizeof(t_philo));
 	if (!data->philo_array)
 	{
-		free(data);
+		write (2, "ERROR: Philosopher array creation failed\n", 42);
 		return ;
 	}
-	i = 0;
 	while (i < data->philo_nbr)
 	{
-		init_philo_threads(&data->philo_array[i], i + 1, data->fork_array);
+		data->philo_array[i].meal_total = 0;
+		data->philo_array[i].last_meal = 0;
+		data->philo_array[i].philo_id = i + 1;
+		data->philo_array[i].data = data;
+		data->philo_array[i].alive = 1;
 		i++;
 	}
 }
