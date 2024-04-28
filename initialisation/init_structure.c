@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:47:25 by nileempo          #+#    #+#             */
-/*   Updated: 2024/04/23 01:55:32 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:32:57 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void	init_philo(t_philo *philo)
 {
 	philo->philo_id = 0;
 	philo->thread = 0;
+	philo->alive = 0;
+	pthread_mutex_init(&philo->print_mutex, NULL);
+	pthread_mutex_init(&philo->meal_mutex, NULL);
+	pthread_mutex_init(&philo->print_mutex, NULL);
+	pthread_mutex_init(&philo->death_mutex, NULL);
 }
 
 void	init_fork(t_fork *fork)

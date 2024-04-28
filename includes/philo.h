@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:13:08 by nileempo          #+#    #+#             */
-/*   Updated: 2024/04/23 02:06:20 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:58:53 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@ typedef struct s_philo
 {
 	int			philo_id;
 	int			meal_total;
-	int			last_meal;
+	time_t		last_meal;
 	int			alive;
 	pthread_t	thread;
 	t_fork		*left_fork;
-	t_fork		*right_fork;	
+	t_fork		*right_fork;
 	t_data		*data;
+	pthread_mutex_t	philo_mutex;
+	pthread_mutex_t	meal_mutex;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	death_mutex;
 }	t_philo;
 
 //fork structure
@@ -76,6 +80,7 @@ void	make_forks_array(t_data *data);
 void	*events(void *arg);
 int		check_meal_count(t_data *data);
 void	check_if_dead(t_philo *philo);
+//void	*check_dinner(void *arg);
 void	print_state(char *state, int philo_id, t_data *data);
 
 //time managment

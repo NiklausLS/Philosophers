@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 22:52:43 by nileempo          #+#    #+#             */
-/*   Updated: 2024/04/23 00:32:59 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:55:20 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ int	main(int argc, char **argv)
 		make_forks_array(data);
 		make_philo_array(data);
 		make_philo_threads(data);
+
 		//START
-		free(data->fork_array);
-		free(data->philo_array);
-		free(data);
+		//free(data->fork_array);
+		//free(data->philo_array);
+		//free(data);
 	}
 	return (0);
 }
