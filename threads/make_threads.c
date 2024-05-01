@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:01:45 by nileempo          #+#    #+#             */
-/*   Updated: 2024/04/23 13:40:37 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:29:28 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	make_forks_array(t_data *data)
 	if (!data->fork_array)
 	{
 		write(2, "Error: forks memory allocation failed.\n", 40);
-		free(data);
+		//free(data);
 		return ;
 	}
 	while (i < data->philo_nbr)
@@ -52,28 +52,28 @@ void	make_philo_threads(t_data *data)
 	while (i < data->philo_nbr)
 	{
 		philo = &data->philo_array[i];
-		philo->left_fork = &data->fork_array[i + (data->philo_array->philo_id - 1)];
-		philo->right_fork = &data->fork_array[i + 1 % (data->philo_array->philo_id - 1)];
+		philo->left_fork = &data->fork_array[i];
+		philo->right_fork = &data->fork_array[(i + 1) % (data->philo_nbr)];
 		philo->meal_total = 0;
-		usleep(1000);
 		if (pthread_create(&philo->thread, NULL, events, philo) != 0)
 		{
 			write(2, "ERROR: Thread creation failed\n", 31);
 			return ;
 		}
-		//printf("Philosopher %d thread id : %lu\n", philo->philo_id, (unsigned long)philo->thread);
-		//printf("Left fork is %d. Right fork is %d\n", philo->left_fork->fork_id, philo->right_fork->fork_id);
-		//printf("Philo %d have to eat %d times\n", philo->philo_id, philo->data->meal_nbr);
+		usleep(1000);
+		printf("Philosopher %d thread id : %lu\n", philo->philo_id, (unsigned long)philo->thread);
+		printf("Left fork is %d. Right fork is %d\n", philo->left_fork->fork_id, philo->right_fork->fork_id);
+		printf("Philo %d have to eat %d times\n", philo->philo_id, philo->data->meal_nbr);
 		i++;
 	}
 	i = 0;
-	/*while (i < data->philo_nbr)
+	while (i < data->philo_nbr)
 	{
 		usleep(100);
 		if (pthread_join(data->philo_array[i].thread, NULL))
 			return ;
 		i++;
-	}*/
+	}
 }
 
 /*
@@ -97,7 +97,7 @@ void	make_philo_array(t_data *data)
 		data->philo_array[i].last_meal = get_timestamp();
 		data->philo_array[i].philo_id = i + 1;
 		data->philo_array[i].data = data;
-		data->philo_array[i].alive = 1;
+		data->philo_array[i].dead = 0;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 22:25:53 by nileempo          #+#    #+#             */
-/*   Updated: 2024/04/23 13:57:05 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/05/01 20:58:25 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	check_meal_count(t_data *data)
 		if (data->philo_array[i].meal_total < data->meal_nbr)
 		{
 			meal_ok = 0;
-			return (1);
 		}
 		i++;
 	}
@@ -39,19 +38,20 @@ void	check_if_dead(t_philo *philo)
 	time_t	current_time;
 
 	current_time = get_timestamp();
-	pthread_mutex_lock(&philo->philo_mutex);
+	pthread_mutex_lock(&philo->death_mutex);
 	//printf("TEST check if dead\n");
 	if ((current_time - philo->last_meal) > philo->data->time_to_eat)
 	{
 		print_state("is dead.\n", philo->philo_id, philo->data);
-		philo->alive = 0;
-		free(philo->left_fork);
-		free(philo->right_fork);
-		pthread_mutex_destroy(&philo->philo_mutex);
+		philo->dead = 1;
+		//free(philo->left_fork);
+		//free(philo->right_fork);
+		pthread_mutex_destroy(&philo->death_mutex);
 	}
-	pthread_mutex_unlock(&philo->philo_mutex);
+	pthread_mutex_unlock(&philo->death_mutex);
 }
 
+/*
 void	*check_dinner(void *arg)
 {
 	t_data *data;
@@ -63,4 +63,4 @@ void	*check_dinner(void *arg)
 		usleep(10);
 	}
 	return (NULL);
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:13:08 by nileempo          #+#    #+#             */
-/*   Updated: 2024/04/23 13:58:53 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/04/30 20:08:25 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_philo
 	int			philo_id;
 	int			meal_total;
 	time_t		last_meal;
-	int			alive;
+	int			dead;
 	pthread_t	thread;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
