@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 22:25:53 by nileempo          #+#    #+#             */
-/*   Updated: 2024/05/01 20:58:25 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:14:46 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,24 @@ int	check_meal_count(t_data *data)
 void	check_if_dead(t_philo *philo)
 {
 	time_t	current_time;
+	time_t	check_last_meal;
 
-	current_time = get_timestamp();
+	current_time = new_timestamp(data->philo);
+	check_last_meal = current_time - philo->last_meal;
+	//printf("Check if dead : last meal = %ld\n", philo->last_meal);
+	//printf("current_time = %ld\n", current_time);
+	printf("philo %d last meal = %ld\n", philo->philo_id, check_last_meal);
+	//printf("time_to_die = %ld\n", philo->data->time_to_die);
 	pthread_mutex_lock(&philo->death_mutex);
 	//printf("TEST check if dead\n");
-	if ((current_time - philo->last_meal) > philo->data->time_to_eat)
+	if (check_last_meal - philo->data->time_to_die >= philo->data->time_to_die)
 	{
+		printf("check_last_meal %ld - time_to_die = %ld = %ld\n", check_last_meal, philo->data->time_to_die, (check_last_meal - philo->data->time_to_die));
 		print_state("is dead.\n", philo->philo_id, philo->data);
 		philo->dead = 1;
 		//free(philo->left_fork);
 		//free(philo->right_fork);
-		pthread_mutex_destroy(&philo->death_mutex);
+		//pthread_mutex_destroy(&philo->death_mutex);
 	}
 	pthread_mutex_unlock(&philo->death_mutex);
 }

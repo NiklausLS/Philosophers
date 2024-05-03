@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:13:08 by nileempo          #+#    #+#             */
-/*   Updated: 2024/04/30 20:08:25 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:45:54 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ void	print_state(char *state, int philo_id, t_data *data);
 //time managment
 time_t	get_timestamp(void);
 time_t	new_timestamp(t_data *data);
+time_t	death_timestamp(t_philo *philo);
 
 #endif
