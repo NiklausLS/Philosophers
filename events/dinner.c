@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 00:48:52 by nileempo          #+#    #+#             */
-/*   Updated: 2024/05/02 20:13:14 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/05/05 05:54:21 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,29 @@ void	*events(void *arg)
 		printf("Error : arg is invalid\n");
 		return (NULL);
 	}
-	//if (philo->data->meal_nbr == 0)
-	//	return (NULL);
 	if (philo->philo_id % 2 == 0)
-		usleep(5000);
+		usleep(10);
 	while (1)
 	{	
 		if (philo->dead == 1)
 			break ;
-		check_meal_count(philo->data);
+		if (check_meal_count(philo->data) == 1)
+			break ;
 		check_if_dead(philo);
 		//printf("meal_timestamp = %ld\n", philo->last_meal);
 		if (philo->dead == 1)
 			break ;
 		if (eating(philo) == 0)
 		{
+			if (check_meal_count(philo->data) == 1)
+				break ;
 			//check_if_dead(philo);
 			if (philo->dead == 1)
-			break ;
+				break ;
 			sleeping(philo);
 			//check_if_dead(philo);
 			if (philo->dead == 1)
-			break ;
+				break ;
 		}
 		else if (eating(philo) == 1)
 			break ;
@@ -82,13 +83,13 @@ static int	eating(t_philo *philo)
 		write (2, "Error for left fork mutex unlock\n", 34);
 		return (1);
 	}
-	printf("--- %d has released the fork on his left [%d].\n", philo->philo_id, philo->left_fork->fork_id);
+	//printf("--- %d has released the fork on his left [%d].\n", philo->philo_id, philo->left_fork->fork_id);
 	if (pthread_mutex_unlock(&(philo->right_fork->fork_mutex)) != 0)
 	{
 		write (2, "Error for right fork mutex unlock\n", 35);
 		return (1);
 	}
-	printf("--- %d has released the fork on his right [%d].\n", philo->philo_id, philo->right_fork->fork_id);
+	//printf("--- %d has released the fork on his right [%d].\n", philo->philo_id, philo->right_fork->fork_id);
 	//philo->last_meal = new_timestamp(philo->data);
 	//printf("last meal = %ld\n", philo->last_meal);
 	usleep(philo->data->time_to_eat * 1000);
