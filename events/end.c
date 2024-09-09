@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 22:25:53 by nileempo          #+#    #+#             */
-/*   Updated: 2024/05/05 06:37:48 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:09:39 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,23 @@ void	check_if_dead(t_philo *philo)
 	//printf("time_to_die = %ld\n", philo->data->time_to_die);
 	pthread_mutex_lock(&philo->death_mutex);
 	//printf("TEST check if dead\n");
-	if (check_last_meal - philo->data->time_to_die >= philo->data->time_to_die)
+
+	if (check_last_meal >= philo->data->time_to_die)
 	{
 		//printf("check_last_meal %ld - time_to_die = %ld = %ld\n", check_last_meal, philo->data->time_to_die, (check_last_meal - philo->data->time_to_die));
 		//print_state("is dead.\n", philo->philo_id, philo->data);
 		philo->dead = 1;
 		print_state("is dead.\n", philo->philo_id, philo->data);
+		pthread_mutex_unlock(&philo->death_mutex);
 		//free(philo->left_fork);
 		//free(philo->right_fork);
 		//pthread_mutex_destroy(&philo->death_mutex);
+		return ;
 	}
 	pthread_mutex_unlock(&philo->death_mutex);
 }
+
+
 
 /*
 void	*check_dinner(void *arg)

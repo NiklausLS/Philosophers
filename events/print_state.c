@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 00:34:47 by nileempo          #+#    #+#             */
-/*   Updated: 2024/05/05 06:18:30 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:29:30 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,7 @@ void	print_state(char *state, int philo_id, t_data *data)
 	time_t	timestamp;
 
 	timestamp = new_timestamp(data);
-	if (pthread_mutex_lock(&data->philo_array[philo_id].print_mutex))
-	{
-		printf("%ld %d %s", timestamp, philo_id, state);
-		pthread_mutex_unlock(&data->philo_array[philo_id].print_mutex);
-	}
-	/*else
-	{
-		printf("Error with mutex lock\n");
-		return ;
-	}*/
+	pthread_mutex_lock(&data->philo_array[philo_id].print_mutex);
+	printf("%ld %d %s", timestamp, philo_id, state);
+	pthread_mutex_unlock(&data->philo_array[philo_id].print_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:13:08 by nileempo          #+#    #+#             */
-/*   Updated: 2024/05/02 18:45:54 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:08:36 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_data
 	t_philo	*philo_array;
 	t_fork	*fork_array;
 	time_t	time_to_start;
+	int		stop;
+	pthread_mutex_t	stop_mutex;
 }	t_data;
 
 //init structure functions
@@ -87,5 +89,8 @@ void	print_state(char *state, int philo_id, t_data *data);
 time_t	get_timestamp(void);
 time_t	new_timestamp(t_data *data);
 time_t	death_timestamp(t_philo *philo);
+
+//free structures
+void	free_data(t_data *data);
 
 #endif

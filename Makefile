@@ -6,7 +6,7 @@
 #    By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/09 22:52:15 by nileempo          #+#    #+#              #
-#    Updated: 2024/04/23 00:35:43 by nileempo         ###   ########.fr        #
+#    Updated: 2024/07/09 23:55:16 by nileempo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS = main.c \
 		./events/end.c \
 		./events/tempus_fugit.c \
 		./events/print_state.c \
+		./utils/free.c \
 
 # compilation rules
 CC = gcc
