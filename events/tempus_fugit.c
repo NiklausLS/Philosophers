@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:47:14 by nileempo          #+#    #+#             */
-/*   Updated: 2024/05/02 19:20:53 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:13:26 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ time_t	new_timestamp(t_data *data)
 
 time_t	death_timestamp(t_philo *philo)
 {
-	struct timeval tv;
+	struct timeval	tv;
 	time_t			death_time;
 
-	if(gettimeofday(&tv, NULL) == -1)
+	if (gettimeofday(&tv, NULL) == -1)
 	{
 		write (2, "death_timestamp had an issue\n", 30);
 		return (-1);
@@ -62,4 +62,13 @@ time_t	death_timestamp(t_philo *philo)
 	printf("death_timestamp : philo->last_meal = %ld\n", philo->last_meal);
 	death_time = (death_time - philo->last_meal);
 	return (death_time);
+}
+
+void	lazy_sleep(long time, t_data *data)
+{
+	long	start_time;
+
+	start_time = get_timestamp();
+	while (!data->stop && get_timestamp() - start_time < time)
+		usleep(100);
 }

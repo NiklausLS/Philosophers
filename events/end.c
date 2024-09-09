@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 22:25:53 by nileempo          #+#    #+#             */
-/*   Updated: 2024/07/10 00:09:39 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:12:20 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,62 +19,64 @@ int	check_meal_count(t_data *data)
 	int	check_meal;
 
 	i = 0;
-	check_meal = 0;
+	check_meal = 1;
 	while (i < data->philo_nbr)
 	{
+		pthread_mutex_lock(&data->meal_mutex);
 		if (data->philo_array[i].meal_total < data->meal_nbr)
 		{
 			check_meal = 0;
+			pthread_mutex_unlock(&data->meal_mutex);
 			break ;
 		}
-		else
-			check_meal = 1;
+		pthread_mutex_unlock(&data->meal_mutex);
 		i++;
 	}
 	return (check_meal);
 }
 
-void	check_if_dead(t_philo *philo)
+int	check_if_dead(t_philo *philo)
 {
 	time_t	current_time;
 	time_t	check_last_meal;
 
+	pthread_mutex_lock(&philo->data->meal_mutex);
 	current_time = new_timestamp(philo->data);
 	check_last_meal = current_time - philo->last_meal;
-	//printf("Check if dead : last meal = %ld\n", philo->last_meal);
-	//printf("current_time = %ld\n", current_time);
-	//printf("philo %d last meal = %ld\n", philo->philo_id, check_last_meal);
-	//printf("time_to_die = %ld\n", philo->data->time_to_die);
-	pthread_mutex_lock(&philo->death_mutex);
-	//printf("TEST check if dead\n");
-
 	if (check_last_meal >= philo->data->time_to_die)
 	{
-		//printf("check_last_meal %ld - time_to_die = %ld = %ld\n", check_last_meal, philo->data->time_to_die, (check_last_meal - philo->data->time_to_die));
-		//print_state("is dead.\n", philo->philo_id, philo->data);
-		philo->dead = 1;
 		print_state("is dead.\n", philo->philo_id, philo->data);
-		pthread_mutex_unlock(&philo->death_mutex);
-		//free(philo->left_fork);
-		//free(philo->right_fork);
-		//pthread_mutex_destroy(&philo->death_mutex);
-		return ;
+		philo->data->stop = 1;
+		pthread_mutex_unlock(&philo->data->meal_mutex);
+		return (1);
 	}
-	pthread_mutex_unlock(&philo->death_mutex);
+	pthread_mutex_unlock(&philo->data->meal_mutex);
+	return (0);
 }
 
-
-
-/*
-void	*check_dinner(void *arg)
+void	check_stop(t_data *data)
 {
-	t_data *data;
+	int	i;
 
-	data = (t_data *)arg;
-	while (1)
+	while (!data->stop)
 	{
-		check_meal_count(data);
-		usleep(10);
+		i = 0;
+		while (i < data->philo_nbr)
+		{
+			if (check_if_dead(&data->philo_array[i]))
+				return ;
+			i++;
+		}
+		if (check_meal_count(data))
+		{
+			pthread_mutex_lock(&data->stop_mutex);
+			data->stop = 1;
+			pthread_mutex_unlock(&data->stop_mutex);
+			pthread_mutex_lock(&data->print_mutex);
+			printf("ALL PHILOSOPHERS ARE SATISFIED\n");
+			pthread_mutex_unlock(&data->print_mutex);
+			return ;
+		}
+		lazy_sleep(1, data);
 	}
-	return (NULL);
-}*/
+}

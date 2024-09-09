@@ -6,13 +6,13 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:44:02 by nileempo          #+#    #+#             */
-/*   Updated: 2024/09/09 08:04:33 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/09/09 08:06:22 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	check_argc(int argc)
+static int	check_argc(int argc)
 {
 	if (argc < 5)
 	{
@@ -27,7 +27,7 @@ int	check_argc(int argc)
 	return (0);
 }
 
-int	check_argv(char **argv)
+static int	check_argv(char **argv)
 {
 	int	i;
 	int	j;

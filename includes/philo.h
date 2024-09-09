@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:13:08 by nileempo          #+#    #+#             */
-/*   Updated: 2024/07/10 00:08:36 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:04:46 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
-typedef struct s_data t_data;
-typedef struct s_fork t_fork;
+typedef struct s_data	t_data;
+typedef struct s_fork	t_fork;
 
 //philosophers id
 typedef struct s_philo
@@ -30,15 +30,10 @@ typedef struct s_philo
 	int			philo_id;
 	int			meal_total;
 	time_t		last_meal;
-	int			dead;
 	pthread_t	thread;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
 	t_data		*data;
-	pthread_mutex_t	philo_mutex;
-	pthread_mutex_t	meal_mutex;
-	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	death_mutex;
 }	t_philo;
 
 //fork structure
@@ -51,16 +46,18 @@ typedef struct s_fork
 //arguments data structure
 typedef struct s_data
 {
-	int		philo_nbr;
-	time_t	time_to_die;
-	time_t	time_to_eat;
-	time_t	time_to_sleep;
-	int		meal_nbr;
-	t_philo	*philo_array;
-	t_fork	*fork_array;
-	time_t	time_to_start;
-	int		stop;
+	int				philo_nbr;
+	time_t			time_to_die;
+	time_t			time_to_eat;
+	time_t			time_to_sleep;
+	int				meal_nbr;
+	t_philo			*philo_array;
+	t_fork			*fork_array;
+	time_t			time_to_start;
+	int				stop;
 	pthread_mutex_t	stop_mutex;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	meal_mutex;
 }	t_data;
 
 //init structure functions
@@ -68,8 +65,6 @@ void	init_data(t_data *data);
 void	init_philo(t_philo *philo);
 
 //parsing functions
-int		check_argc(int argc);
-int		check_argv(char **argv);
 int		check_all(int argc, char **argv);
 void	get_argv(int argc, char **argv, t_data *data);
 
@@ -79,9 +74,18 @@ void	make_philo_array(t_data *data);
 void	make_forks_array(t_data *data);
 
 //events
-void	*events(void *arg);
+void	*philo_routine(void *arg);
+int		check_philosopher_state(t_data *data, int i);
+int		check_meals(t_data *data);
+int		eating(t_philo *philo);
+int		thinking(t_philo *philo);
+int		sleeping(t_philo *philo);
+void	stop(t_data *data);
+void	lazy_sleep(long time, t_data *data);
+void	check_stop(t_data *data);
+
 int		check_meal_count(t_data *data);
-void	check_if_dead(t_philo *philo);
+int		check_if_dead(t_philo *philo);
 //void	*check_dinner(void *arg);
 void	print_state(char *state, int philo_id, t_data *data);
 
