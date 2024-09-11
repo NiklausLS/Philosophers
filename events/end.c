@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 22:25:53 by nileempo          #+#    #+#             */
-/*   Updated: 2024/09/09 21:12:20 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/09/12 00:17:27 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	check_meal_count(t_data *data)
 
 	i = 0;
 	check_meal = 1;
+	if (data->meal_nbr <= 0)
+		return (0);
 	while (i < data->philo_nbr)
 	{
 		pthread_mutex_lock(&data->meal_mutex);
@@ -78,5 +80,7 @@ void	check_stop(t_data *data)
 			return ;
 		}
 		lazy_sleep(1, data);
+		usleep(1000);
 	}
+	printf("ERROR\n");
 }

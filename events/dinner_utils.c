@@ -6,7 +6,7 @@
 /*   By: nileempo <nileempo@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:09:35 by nileempo          #+#    #+#             */
-/*   Updated: 2024/09/09 21:11:31 by nileempo         ###   ########.fr       */
+/*   Updated: 2024/09/12 00:10:19 by nileempo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	check_meals(t_data *data)
 
 	i = 0;
 	enough_eats = 0;
+	if (data->meal_nbr <= 0)
+		return (0);
 	while (i < data->philo_nbr)
 	{
 		pthread_mutex_lock(&data->meal_mutex);
